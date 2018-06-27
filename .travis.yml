@@ -1,10 +1,3 @@
-service:
-- docker
-
-env:
-  global:
-  - TERM=dumb
-
 language: java
 jdk: oraclejdk8
 
@@ -13,35 +6,17 @@ addons:
     update: true
     packages:
     - bash
-    - unzip
     - curl
-    - jq
-    - libxml2-utils
-    - docker-ce
+    - sudo
     - python-pip
 
 install: true
 before_script:
-- sudo pip install docker-compose httpie >/dev/null 2>&1
+- sudo pip install httpie >/dev/null 2>&1
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
 - stop_any 8080 80
 
 script:
-- bash gradlew >/dev/null
-- java -jar ./build/libs/*.jar &
-- wait_for 8080
-- http :8080
-- stop_any 8080 80
-#
-- bash ./build/libs/*.jar &
-- wait_for 8080
-- http :8080
-- stop_any 8080 80
-#
-- bash gradlew composeUp
-- http :8080
-- bash gradlew composeDown
-#
 - bash mvnw >/dev/null
 - java -jar ./target/*.jar &
 - wait_for 8080
@@ -52,13 +27,14 @@ script:
 - wait_for 8080
 - http :8080
 - stop_any 8080 80
-#
-- bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up -P docker
-- sleep 20
-- http :8080
-- bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down -P docker
 
-before_deploy: ./gradlew documentation
+before_deploy:
+- ./mvnw -Pdocs
+
+env:
+  global:
+  - TERM=dumb
+  - secure: QVob2mTDDQua7rdq9ztVqc/Wjj0j5dhEi/y366yWmJ7ZUmqMUhI3FR8RaFtRBcriBkFgkusf32nqT+/2EiKjINxvWa2ovsK4jMZktUlSGtw7DrJT6pDxQ5YL7KK7stIVB6DbfXokr6l9vhCERoWlphdKqo7YLHP9V+O9QGbHoyTqGwgH5hTQ9Kvc19/+IbvFl+JlHeHMtR3aRDMuu+0fVqVJqPhVHa4oC/uGSSEKh3FfFuoj9nlIdrBMT8x+LcE98hFXz7qUFktdjA8Rgo9/4sagCEI4UL3RGluCERpfhfWfSngSS6qnMvijHKDuuwWrV8EArwGfzZgc4ZEVS/kc+Qiw3EEBaB/RuUonUwgV2yTkASEI53k0laiDddJqo2u34FcZeEbQmGYYdzshziyZqfqZd8PImEBzGefDuMMdYwelri1Q2fSJan1LfeSSUaqmz3VTQ7bPXUiCbaw0bCX9aeU+k1Cbd10cFfBcdfRfhiXDwr3EteNmXocB4/ObY8mHBth+mAGR2YhlUBEUS2tiS4uaM12BBbyE8kFMf7wNGx6+DQ4u+dInjAbP4HKVwHzzvn6wHU0iGl1JSwlOqxsj+Ig8Kez+QPE0PrEMdy2PjhBgs4Vnz8PERzSf7hTWsFcfxFL3a8FnIcogCpyDYIIA0WuWqQDnoLE6ENCiKK/WiI0=
 
 deploy:
   provider: pages
@@ -71,13 +47,7 @@ deploy:
   local-dir: target/generated-docs
   target_branch: gh-pages
 
-before_cache:
-- sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
-- sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.lock
-- sudo rm -rf $HOME/.gradle/caches/modules-2/modules-2.lock
-
 cache:
   directories:
   - $HOME/.m2
-  - $HOME/.gradle
   - $HOME/.docker
