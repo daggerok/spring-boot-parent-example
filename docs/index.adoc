@@ -1,0 +1,91 @@
+= {root-project-name} ({project-version})
+////
+image:https://travis-ci.org/daggerok/root-project-name.svg?branch=master["Build Status", link=github-url]
+image:https://gitlab.com/daggerok/root-project-name/badges/master/build.svg["Build Status", link=gitlab-url]
+image:https://img.shields.io/bitbucket/pipelines/daggerok/root-project-name.svg["Build Status", link=bitbucket-url]
+////
+Maksim Kostromin <daggerok@gmail.com>
+{docdatetime}
+:doctype: book
+:toc: left
+:toclevels: 4
+:source-highlighter: prettify
+:numbered:
+:icons: font
+:hide-uri-scheme:
+:revnumber: {project-version}
+:example-caption!:
+
+Travis CI status:
+image:https://travis-ci.org/daggerok/{root-project-name}.svg?branch=master["Build Status", link={github-url}]
+
+////
+GitLab CI status:
+image:https://gitlab.com/daggerok/{root-project-name}/badges/master/build.svg["Build Status", link={gitlab-url}]
+
+BitBucket CI status:
+image:https://img.shields.io/bitbucket/pipelines/daggerok/{root-project-name}.svg["Build Status", link={bitbucket-url}]
+////
+
+== Introduction
+
+include::../README.adoc[tags=content]
+
+== Implementation
+
+.1. create root project folder
+[source,bash]
+----
+mkdir spring-boot-parent-example
+touch pom.xml
+----
+
+.root
+[source,xml]
+----
+include::../pom.xml[tags=content]
+----
+
+.2. create spring-boot parent project holder by generating it from start.spring.io project: maven type: pom
+[source,bash]
+----
+cd spring-boot-parent-example/
+mkdir parent
+touch parent/pom.xml
+----
+
+.parent
+[source,xml]
+----
+include::../parent/pom.xml[tags=content]
+----
+
+.3. / 4. create maven submodules with parent not spring-boot-parent, but previously create one: `parent`
+[source,bash]
+----
+mkdir library application
+touch library/pom.xml application/pom.xml
+----
+
+.library
+[source,xml]
+----
+include::../application/pom.xml[tags=content]
+----
+
+.application
+[source,xml]
+----
+include::../application/pom.xml[tags=content]
+----
+
+== Links
+
+ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]
+- link:{github-url}[GitHub repo]
+- link:https://daggerok.github.io/{root-project-name}[GitHub pages]
+////
+- link:{gitlab-url}[GitLab repo]
+- link:https://daggerok.gitlab.io/{root-project-name}[GitLab pages]
+- link:{bitbucket-url}[BitBucket repo]
+////
