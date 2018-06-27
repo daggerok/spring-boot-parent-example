@@ -626,7 +626,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1-SNAPSHOT,</span>
-<span id="revdate">2018-06-27 05:51:05 UTC</span>
+<span id="revdate">2018-06-27 05:59:18 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -653,7 +653,22 @@ table.CodeRay td.code>pre{padding:0}
 <p>This repo demonstrates example of spring-boot parent custom module usage.</p>
 </div>
 <div class="listingblock">
-<div class="title">maven</div>
+<div class="content">
+<pre>project
+  │
+  ├── application
+  │   ├── pom.xml
+  │   └── src...
+  ├── library
+  │   ├── pom.xml
+  │   └── src...
+  ├── parent
+  │   └── pom.xml
+  └── pom.xml</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">maven build</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">./mvnw
 java -jar ./application/target/*.jar
@@ -817,7 +832,7 @@ touch library/pom.xml application/pom.xml</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2018-06-27 05:51:05 UTC
+Last updated 2018-06-27 05:59:18 UTC
 </div>
 </div>
 </body>
