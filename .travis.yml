@@ -18,15 +18,8 @@ before_script:
 
 script:
 - bash mvnw >/dev/null
-- java -jar ./target/*.jar &
-- wait_for 8080
-- http :8080
-- stop_any 8080 80
-#
-- bash ./target/*.jar &
-- wait_for 8080
-- http :8080
-- stop_any 8080 80
+- java -jar ./application/target/*.jar &
+- bash ./application/target/*.jar &
 
 before_deploy:
 - ./mvnw -Pdocs
