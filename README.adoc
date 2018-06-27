@@ -9,7 +9,23 @@ image:https://img.shields.io/bitbucket/pipelines/daggerok/spring-boot-parent-exa
 
 This repo demonstrates example of spring-boot parent custom module usage.
 
-.maven
+----
+
+project
+  │
+  ├── application
+  │   ├── pom.xml
+  │   └── src...
+  ├── library
+  │   ├── pom.xml
+  │   └── src...
+  ├── parent
+  │   └── pom.xml
+  └── pom.xml
+
+----
+
+.maven build
 [source,bash]
 ----
 ./mvnw
